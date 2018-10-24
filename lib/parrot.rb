@@ -17,6 +17,21 @@ class Parrot
         @learned_words = []
         puts "\n\n\n"
         puts "Parrot  #{@name} was born.".light_yellow
+
+        x = <<~parrot
+        __,---.
+       /__|o\  )
+        `-\ / /
+          ,) (,
+         //   \\
+        {(     )}
+  =======""===""===============
+          |||||
+           |||
+            |
+
+        parrot
+        puts x.light_cyan
     end 
 
     def how_are_u
@@ -42,7 +57,20 @@ class Parrot
 
     def life_time
         if dead?
-            puts"#{@name} is dead. his had no food neither water and no lifes"
+            y = <<~parrot
+            __,---.
+            /__|x\  )
+             `-\ / /
+               ,) (,
+              //   \\
+             {(     )}
+       =======""===""===============
+               |||||
+                |||
+                 |
+            parrot
+            puts y.light_red
+            puts "#{@name} is dead. his had no food neither water and no lifes".red
             exit
         end
         if hungry?
