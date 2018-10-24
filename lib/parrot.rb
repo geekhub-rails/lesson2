@@ -50,7 +50,7 @@ class Parrot
         end
         print "I want banana! ".colorize(:light_yellow) if wants_banana
         print "I want to fly! ".colorize(:light_yellow) if wants_to_fly
-        print "I want to sleep! ".colorize(:light_yellow) if wants_to_sleep
+        print "I  sleep now! ".colorize(:light_yellow) if wants_to_sleep
         print "\n"
         is_talking      
     end
@@ -59,7 +59,7 @@ class Parrot
         if dead?
             y = <<~parrot
             __,---.
-            /__|x\  )
+           /__|x\  )
              `-\ / /
                ,) (,
               //   \\
