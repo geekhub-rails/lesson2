@@ -38,13 +38,13 @@ class Parrot
         print "Hi, my name is #{@name}. ".colorize(:light_cyan)
         print "My mood is #{mood}. ".colorize(:light_cyan)
         if has_food?
-            print "I have enought food. ".colorize(:light_cyan)
+            print "I have enough food. ".colorize(:light_cyan)
         else
             print "I have no food! ".colorize(:red)
             print "I am hungry! ".colorize(:red) if hungry?
         end
         if has_water?
-            print "I have enought water. ".colorize(:light_cyan)
+            print "I have enough water. ".colorize(:light_cyan)
         else
             print "I have no water! ".colorize(:red)
         end
@@ -52,10 +52,10 @@ class Parrot
         print "I want to fly! ".colorize(:light_yellow) if wants_to_fly
         print "I  sleep now! ".colorize(:light_yellow) if wants_to_sleep
         print "\n"
-        is_talking      
+        talk     
     end
 
-    def life_time
+    def check_death
         if dead?
             y = <<~parrot
             __,---.
@@ -73,19 +73,24 @@ class Parrot
             puts "#{@name} is dead. his had no food neither water and no lifes".red
             exit
         end
+    end
+
+    def life_time    
         if hungry?
             if has_food?
                 @food_in_jeil -= 4
                 @food_in_stomach +=4
             else
                 loose_one_life
+                life_lost = true
                 puts "#{@name} screams loudly!".red
             end
         end
         if has_water?
-            @clean_water_count -= 2
+            @clean_water_count -= 2            
         else 
             puts "#{@name} screams loudly!".red
+            loose_one_life if ! life_lost
         end  
         poops           
     end
@@ -112,10 +117,10 @@ class Parrot
     end
 
     def loose_one_life
-        if @food_in_stomach == 0 ||  @clean_water_count == 0
+        if @food_in_stomach <= 0 ||  @clean_water_count <= 0
              @lifes -=1
              puts "#{@name} screaming loadly".red
-             puts "you forgot give you parrot water or food, so it loose one life.".red
+             puts "you forgot give you parrot water or food, so it lost one life.".red
              puts "the number of lifes = #{@lifes}".red
         end
      end
@@ -124,16 +129,13 @@ class Parrot
         @lifes == 0
      end
  
-
- 
-    def is_talking
+    def talk
+        k = rand(6)
+        puts "#{@name} says: ".light_green
         if @learned_words.empty?
-            5.times{puts 'krya-krya'.light_yellow}
+            k.times{puts 'krya-krya'.light_yellow}
         else
-            5.times{puts @learned_words[rand(@learned_words.size)].light_yellow }
+            k.times{puts @learned_words[rand(@learned_words.size)].light_yellow }
         end            
     end
-    
-    
-
 end

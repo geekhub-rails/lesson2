@@ -2,33 +2,36 @@ class Game
     def start       
         puts "enter name of your parrot, please: ".light_green
         @name = gets.chomp
-        @parrot = Parrot.new(@name)
-        
+        @parrot = Parrot.new(@name)   
+        display_parrot     
         loop do
-            display_parrot
+            @parrot.check_death
             todo = ask_user 
-            puts "turn lights on first".light_red if  @parrot.wants_to_sleep       
+            if @parrot.wants_to_sleep && todo != 10 && todo !=  7 
+                puts "turn lights on first".light_red
+                next
+            end     
             case todo
             when 1 then give_food
             when 2 then give_water
             when 3 then give_banana
-            when 4
-                puts  "what word you wanna teach #{@name}".light_green
-                word = gets.chomp
-                teach_new_word(word)
+            when 4 then teach_new_word
             when 5 then open_jail
             when 6 then return_to_jail
             when 7 then turn_lights_on
             when 8 then turn_lights_off
-            when 9 then exit
+            when 9 then speak_with_parrot
+            when 10 then exit
             else puts "i don't now the command".light_red                     
             end 
             @parrot.life_time
+            display_parrot
         end
     end
 
     def display_parrot
         @parrot.how_are_u
+        #puts @parrot.inspect
     end
 
     def give_food
@@ -64,9 +67,11 @@ class Game
         end       
     end
 
-    def teach_new_word(word)
+    def teach_new_word
+        puts  "what word you wanna teach #{@name}".light_green
+        word = gets.chomp
         @parrot.learned_words << word
-        puts "#{@name} teach word '#{word}'. it knows this words: #{@parrot.learned_words}".light_green
+        puts "#{@name} teach word '#{word}'. it knows this words: #{@parrot.learned_words.join(", ")}".light_green
         @parrot.wants_banana = true
     end
 
@@ -90,11 +95,26 @@ class Game
     end
 
     def give_banana
-        puts "#{@name} eats banana".light_green
-        @parrot.mood = "happy" 
-        @parrot.food_in_jeil += 4
-        @parrot.food_in_stomach = 4
-        @parrot.wants_banana = false      
+        if @parrot.wants_banana
+            puts "#{@name} eats banana".light_green
+            @parrot.mood = "happy" 
+            @parrot.food_in_jeil += 4
+            @parrot.food_in_stomach = 4
+            @parrot.wants_banana = false    
+        else
+            puts "#{@name} doesn't want a banana"  
+        end
+    end
+
+    def speak_with_parrot
+        puts "What word do you want to ask #{@name}".light_green
+        word = gets.chomp
+        if @parrot.learned_words.include?(word)
+            puts word.light_blue
+        else
+            puts "I don't know this word".light_yellow
+        end
+        @parrot.wants_banana = true
     end
 
     private 
@@ -110,7 +130,8 @@ class Game
         puts "return to jail >> type 6".light_green
         puts "turn lights on >> type 7".light_green
         puts "turn lights off >> type 8".light_green
-        puts "exit >> type 9".red
+        puts "speak with parrot >> type 9".light_green
+        puts "exit >> type 10".red
         todo = gets.chomp.to_i
     end
 end
