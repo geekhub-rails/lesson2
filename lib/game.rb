@@ -7,6 +7,9 @@ class Game
         @parrot = Parrot.new(@name)
         ask_user
         loop do
+            display_parrot
+            p "please enter command number: "
+          
             todo = user_input
             case todo
             when 1 then give_food
@@ -20,9 +23,10 @@ class Game
             when 6 then return_to_jail
             when 7 then turn_lights_on
             when 8 then turn_lights_off
-            #else p "i don't now the command"
-            else break            
+            when 9 then exit
+            else p "i don't now the command"                     
             end 
+            @parrot.life_time
         end
         
     end
@@ -34,13 +38,14 @@ class Game
 
     def give_food
         p "#{@name} has eaten the food"
-        @parrot.food_in_jeil = 10
+        @parrot.food_in_jeil = 12
+        @parrot.food_in_stomach = 4
         @parrot.wants_to_fly = true
     end
 
     def give_water
         p "#{@name} has got the water"
-        @parrot.clean_water_count = 5
+        @parrot.clean_water_count = 10
     end
 
     def open_jail
@@ -95,8 +100,9 @@ class Game
         p "return to jail >> write 6"
         p "turn lights on >> write 7"
         p "turn lights off >> write 8"
+        p "exit >> write 9"
     end
-    
+
     def user_input
         todo = gets.chomp.to_i
     end
