@@ -1,5 +1,5 @@
 require 'yaml'
-require_relative '../ball'
+require_relative '../lib/ball'
 
 RSpec.describe Ball do
   let(:answers) { YAML.load_file(File.join(__dir__, '../answers.yml')) }
