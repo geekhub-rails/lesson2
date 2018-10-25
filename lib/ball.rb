@@ -1,4 +1,3 @@
-require 'colorize'
 class Ball
   POSITIVE = ['It is certain',
               'It is decidedly so',
@@ -42,5 +41,5 @@ class Ball
     end
   end
 end
-ball = Ball.new
-ball.shake
+
+
