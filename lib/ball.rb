@@ -24,20 +24,22 @@ class Ball
     all_ansvers = [POSITIVE, HZ, NEITRAL, NEGATIVE]
     random_emotion = all_ansvers[rand(all_ansvers.size)]
     ansver = random_emotion[rand(random_emotion.size)]
-    # puts "\n\n"
-    give_color(random_emotion, ansver)
-    # puts "\n\n"
+    puts "\n"
+    answer_message = give_color(random_emotion, ansver)
+    puts answer_message
+    puts "\n"
+    answer_message
   end
 
   def give_color(str, ansv)
     if str == POSITIVE
-      puts ansv.to_s.light_blue
+       ansv.to_s.light_blue
     elsif str == HZ
-      puts ansv.to_s.light_green
+       ansv.to_s.light_green
     elsif str == NEITRAL
-      puts ansv.to_s.light_yellow
+       ansv.to_s.light_yellow
     else
-      puts ansv.to_s.light_red
+       ansv.to_s.light_red
     end
   end
 end

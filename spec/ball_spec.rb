@@ -1,18 +1,18 @@
-require 'yaml'
+require 'colorize'
 require_relative '../lib/ball'
 
 RSpec.describe Ball do
-  let(:answers) { YAML.load_file(File.join(__dir__, '../answers.yml')) }
+  let(:ball){Ball.new}
+  subject{ball.shake}
 
-  it { expect(answers).to include(subject.shake) }
-  it { expect(answers).to eql(Ball::ANSWERS) }
-
-  describe '#shake' do
-    before { stub_const('Ball::ANSWERS', ['ANSWER']) }
-
-    it 'prints colorized answer' do
-      expect(STDOUT).to receive(:puts).with("\e[31mANSWER\e[0m")
-      subject.shake
-    end
+  it "returns string" do
+    expect(subject).to be_a(String)
   end
+
+  it "has color" do
+    colors = ["\e[0;91;49m", "\e[0;93;49m", "\e[0;94;49m", "\e[0;92;49m"]
+    has_any_color = colors.any?{| el | subject.include?(el) }
+    expect(has_any_color).to eq(true)
+  end
+
 end
