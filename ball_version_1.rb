@@ -45,12 +45,12 @@ class Ball
                     'Yes - definitely',
                     'You may rely on it']
 
-    shake = [red_answers[rand(5)].red,
-             green_answers[rand(4)].green,
-             yellow_answers[rand(5)].yellow,
-             blue_answers[rand(5)].blue]
+    shake = [red_answers[rand(red_answers.size)].red,
+             green_answers[rand(green_answers.size)].green,
+             yellow_answers[rand(yellow_answers.size)].yellow,
+             blue_answers[rand(blue_answers.size)].blue]
 
-    puts shake[rand(4)].to_s
+    puts shake[rand(shake.size)].to_s
   end
 end
 Ball.new.shake

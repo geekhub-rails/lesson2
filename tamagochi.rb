@@ -1,7 +1,7 @@
 class Pet
   def initialize(name, age = 0, lifes = 1, mood = 3, hungry = 5,
                  sleep = 5, death = false)
-    @name = name
+    @name = name.capitalize
     @age = age
     @lifes = lifes
     @mood = mood
@@ -14,7 +14,7 @@ class Pet
 
   def eat
     eat = %w(apple banana meat potato fish honey milk nut)
-    puts "#{@name} has eaten #{eat[rand(eat.length)]}"
+    puts "#{@name} has eaten #{eat[rand(eat.size)]}"
     @hungry += 3
     @mood += 1
     plus_one_hour
@@ -92,7 +92,8 @@ class Pet
   end
 end
 
-pet = Pet.new('Bobik')
+puts 'Type name of your new pet'
+pet = Pet.new(gets.chomp)
 
 loop do
   command = gets.chomp
