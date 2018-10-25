@@ -4,7 +4,7 @@ class Ball
               'Without a doubt',
               'Yes — definitely',
               'You may rely on it']
-  HZ = ['As I see it, yes',
+  WEAK = ['As I see it, yes',
         'Most likely',
         'Outlook good',
         'Signs point to yes',
@@ -21,26 +21,31 @@ class Ball
               'Very doubtful']
 
   def shake
-    all_ansvers = [POSITIVE, HZ, NEITRAL, NEGATIVE]
+    all_ansvers = [POSITIVE, WEAK, NEITRAL, NEGATIVE]
     random_emotion = all_ansvers[rand(all_ansvers.size)]
     ansver = random_emotion[rand(random_emotion.size)]
-    puts "\n"
+    log("\n")
     answer_message = give_color(random_emotion, ansver)
-    puts answer_message
-    puts "\n"
+    log(answer_message)
+    log("\n")
+      
     answer_message
   end
 
   def give_color(str, ansv)
     if str == POSITIVE
        ansv.to_s.light_blue
-    elsif str == HZ
+    elsif str == WEAK
        ansv.to_s.light_green
     elsif str == NEITRAL
        ansv.to_s.light_yellow
     else
        ansv.to_s.light_red
     end
+  end
+
+  def log(message)
+    puts message    
   end
 end
 

@@ -1,9 +1,10 @@
 require 'colorize'
 require_relative '../lib/ball'
 
-RSpec.describe Ball do
+RSpec.describe Ball do  
+  before {allow_any_instance_of(Ball).to receive(:log){} }
   let(:ball){Ball.new}
-  #before { $stdout.stub(:write) }
+ 
   subject{ball.shake}
 
   it "returns string" do
