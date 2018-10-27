@@ -13,7 +13,7 @@ class Ball
     'Signs point to yes',
     'Yes'
   ]
-  NEITRAL = [
+  NEUTRAL = [
     'Reply hazy, try again',
     'Ask again later',
     'Better not tell you now',
@@ -29,7 +29,7 @@ class Ball
   ]
 
   def shake
-    all_ansvers = [POSITIVE, WEAK, NEITRAL, NEGATIVE]
+    all_ansvers = [POSITIVE, WEAK, NEUTRAL, NEGATIVE]
     random_emotion = all_ansvers[rand(all_ansvers.size)]
     ansver = random_emotion[rand(random_emotion.size)]
     puts "\n"
@@ -45,7 +45,7 @@ class Ball
       ansv.to_s.light_blue
     elsif str == WEAK
       ansv.to_s.light_green
-    elsif str == NEITRAL
+    elsif str == NEUTRAL
       ansv.to_s.light_yellow
     else
       ansv.to_s.light_red

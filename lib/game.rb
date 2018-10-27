@@ -22,7 +22,7 @@ class Game
       when 8 then turn_lights_off
       when 9 then speak_with_parrot
       when 10 then exit
-      else puts "i don't now the command".light_red
+      else puts "I don't know the command".light_red
       end
       @parrot.life_time
       display_parrot
@@ -53,7 +53,7 @@ class Game
       @parrot.mood = 'happy'
       @parrot.wants_to_fly = false
     else
-      puts 'You already opened jeil  '.light_red
+      puts 'You already opened the jeil  '.light_red
     end
   end
 
@@ -63,15 +63,15 @@ class Game
       puts "#{@name} return to the jeil".light_green
       @parrot.mood = 'good'
     else
-      puts 'you did not open jail'.light_red
+      puts 'you have not open jail'.light_red
     end
   end
 
   def teach_new_word
-    puts "what word you wanna teach #{@name}".light_green
+    puts "what word do you want to teach #{@name}?".light_green
     word = gets.chomp
     @parrot.learned_words << word
-    puts "#{@name} teach word '#{word}'. it knows this words: #{@parrot.learned_words.join(', ')}".light_green
+    puts "#{@name} learned the word '#{word}'. it knows such words: #{@parrot.learned_words.join(', ')}".light_green
     @parrot.wants_banana = true
   end
 
@@ -80,7 +80,7 @@ class Game
       @parrot.wants_to_sleep = true
       puts "#{@name} sleep".light_green
     else
-      puts 'you did not turn lights on'.light_red
+      puts 'you have not turn lights on'.light_red
     end
   end
 
@@ -90,13 +90,13 @@ class Game
       puts "#{@name} wake up".light_green
       @parrot.mood = 'norm'
     else
-      puts 'you did not turn lights off'.light_red
+      puts 'you have not turn lights off'.light_red
     end
   end
 
   def give_banana
     if @parrot.wants_banana
-      puts "#{@name} eats banana".light_green
+      puts "#{@name} is eating the banana".light_green
       @parrot.mood = 'happy'
       @parrot.food_in_jeil += 4
       @parrot.food_in_stomach = 4
@@ -107,7 +107,7 @@ class Game
   end
 
   def speak_with_parrot
-    puts "What word do you want to ask #{@name}".light_green
+    puts "What word do you want to ask #{@name}?".light_green
     word = gets.chomp
     if @parrot.learned_words.include?(word)
       puts word.light_blue
@@ -121,7 +121,7 @@ class Game
 
   def ask_user
     puts "\n\n\n"
-    puts 'What do you want to do? choose command  '.light_green
+    puts 'What do you want to do? pick a command'.light_green
     puts 'give food >> type 1'.light_green
     puts 'give water >> type 2'.light_green
     puts 'give banana >> type 3'.light_green

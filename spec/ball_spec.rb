@@ -22,7 +22,7 @@ RSpec.describe Ball do
 
     context 'all_colors' do
       subject { (1..100).map { Ball.new.shake } }
-      it 'return_all_colors' do
+      it 'has all colors' do
         has_every_color = colors.all? { |el| subject.join.include?(el) }
         expect(has_every_color).to eq(true)
       end
