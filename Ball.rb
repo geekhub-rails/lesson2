@@ -17,5 +17,6 @@ class Ball
     end
     puts "\e[#{color_string}m#{ANSWERS[index]}\e[0m"
     ANSWERS[index]
+    
   end
 end
