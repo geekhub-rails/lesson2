@@ -38,6 +38,12 @@ class Pokemon
       'well' => [
         'улыбается и радуется жизни.'
       ]
+    },
+    'fight' => {
+      'well' => [
+        'легко одержал победу над противником.',
+        'победил.'
+      ]
     }
   }
 
@@ -57,22 +63,22 @@ class Pokemon
     ],
     'watch' => [
       'watch_well'
+    ],
+    'fight' => [
+      'fight_well'
     ]
   }
 
   POKEMON_TYPES = {
     'fiery' => {
-      'health' => 5,
       'max_health' => 10,
       'damage' => 10
     },
     'earthy' => {
-      'health' => 10,
       'max_health' => 15,
       'damage' => 5
     },
     'water' => {
-      'health' => 5,
       'max_health' => 12,
       'damage' => 7
     }
@@ -113,6 +119,7 @@ class Pokemon
     puts ' walk'
     puts ' sleep'
     puts ' watch'
+    puts ' fight'
   end
 
   def feed()
@@ -136,21 +143,24 @@ class Pokemon
   end
 
   def fight
-
-    passage_of_time('watch')
+    if @health < 5
+      puts 'У вашего покемона слишком мало жизней для сражения.'
+    else
+      passage_of_time('fight')
+    end
   end
 
   private
   def initialize_type(type)
     pokemon_skills = POKEMON_TYPES[type]
     @type = type
-    @health = pokemon_skills['health']
-    @max_health = pokemon_skills['health']
+    @health = pokemon_skills['max_health']
+    @max_health = pokemon_skills['max_health']
     @damage = pokemon_skills['damage']
   end
 
-  def rand_number(x, y)
-    rand(y - x) + x
+  def rand_number(a, b)
+    rand(b - a) + a
   end
 
   def get_random_answer(action, state)
@@ -172,16 +182,7 @@ class Pokemon
     elsif @health < 3 && @mood < 3 && @water < 3 && @food < 3
       puts "#{@name} убежал от вас потому что вы о нем не заботились."
     else
-      case action
-      when 'feed'
-        self.send(get_random_action('feed'))
-      when 'walk'
-        self.send(get_random_action('walk'))
-      when 'sleep'
-        self.send(get_random_action('sleep'))
-      when 'watch'
-        self.send(get_random_action('watch'))
-      end
+      self.send(get_random_action(action))
     end
   end
 
@@ -231,7 +232,16 @@ class Pokemon
   end
 
   def watch_well
+    energy = @energy + 5
+    @energy = energy >= 10 ? 10 : energy
     puts get_random_answer('watch', 'well')
+  end
+
+  def fight_well
+    random = rand_number(1, 5)
+    @money += random
+    @health -= 1
+    puts get_random_answer('fight', 'well')
   end
 end
 
@@ -257,6 +267,8 @@ until command == 'exit'
     pokemon.sleep
   when 'watch'
     pokemon.watch
+  when 'fight'
+    pokemon.fight
   else
     puts command + ' неизвестная команда.'
     print 'Что бы получить полный '
