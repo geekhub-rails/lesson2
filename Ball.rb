@@ -5,7 +5,6 @@ class Ball
 
   def shake
     index = rand(ANSWERS.size)
-
     case index
     when 0..4
       color_string = 31
@@ -16,12 +15,7 @@ class Ball
     when 15..19
       color_string = 34
     end
-
     puts "\e[#{color_string}m#{ANSWERS[index]}\e[0m"
     ANSWERS[index]
-
   end
 end
-
-a = Ball.new
-p a.shake

@@ -262,7 +262,7 @@ while true
   when 'observe'
     pet.observe
   when 'help'
-    pet.showCommands    
+    pet.showCommands
   else
     puts 'There is not such command'
   end
