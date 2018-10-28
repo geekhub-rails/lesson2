@@ -28,6 +28,16 @@ class Pokemon
         'потерялся.',
         'убежал.'
       ]
+    },
+    'sleep' => {
+      'well' => [
+        'выспался.'
+      ]
+    },
+    'watch' => {
+      'well' => [
+        'улыбается и радуется жизни.'
+      ]
     }
   }
 
@@ -41,6 +51,12 @@ class Pokemon
       'walk_well',
       'walk_bad',
       'walk_oops'
+    ],
+    'sleep' => [
+      'sleep_well'
+    ],
+    'watch' => [
+      'watch_well'
     ]
   }
 
@@ -89,6 +105,16 @@ class Pokemon
     puts "Money: #{@money}"
   end
 
+  def help
+    puts 'Список доступных команд:'
+    puts ' help'
+    puts ' info'
+    puts ' feed'
+    puts ' walk'
+    puts ' sleep'
+    puts ' watch'
+  end
+
   def feed()
     puts 'Вы кормите ' + @name
     passage_of_time('feed')
@@ -100,25 +126,21 @@ class Pokemon
   end
 
   def sleep
-    @is_sleep = true
-    energy = @energy + 5
-    water = @water - 2
-    @energy = energy >= 10 ? 10 : energy
-    @water = water < 0 ? 0 : water
+    puts 'Zzzzz....'
     passage_of_time('sleep')
   end
 
-  def help
-    puts 'Список доступных команд:'
-    puts ' help'
-    puts ' info'
-    puts ' feed'
-    puts ' walk'
-    puts ' sleep'
+  def watch
+    puts 'Вы наблюдаете за ' + @name
+    passage_of_time('watch')
+  end
+
+  def fight
+
+    passage_of_time('watch')
   end
 
   private
-
   def initialize_type(type)
     pokemon_skills = POKEMON_TYPES[type]
     @type = type
@@ -136,7 +158,7 @@ class Pokemon
   end
 
   def get_random_action(action)
-    RANDOM_ACTION['walk'][rand_number(0, RANDOM_ACTION['walk'].length)]
+    RANDOM_ACTION[action][rand_number(0, RANDOM_ACTION[action].length)]
   end
 
   def passage_of_time(action)
@@ -157,13 +179,14 @@ class Pokemon
         self.send(get_random_action('walk'))
       when 'sleep'
         self.send(get_random_action('sleep'))
+      when 'watch'
+        self.send(get_random_action('watch'))
       end
     end
   end
 
   def feed_well
     random = rand_number(1, 5)
-    random = @money <= random ? @money : random
     food = @food + random
     health = @health + random
     @food = food >= 10 ? 10 : food
@@ -198,6 +221,18 @@ class Pokemon
     @health = 0
     puts get_random_answer('walk', 'bad')
   end
+
+  def sleep_well
+    energy = @energy + 5
+    water = @water - 2
+    @energy = energy >= 10 ? 10 : energy
+    @water = water < 0 ? 0 : water
+    puts get_random_answer('sleep', 'well')
+  end
+
+  def watch_well
+    puts get_random_answer('watch', 'well')
+  end
 end
 
 pokemon = Pokemon.new('Pikachu', 'water')
@@ -205,11 +240,11 @@ pokemon = Pokemon.new('Pikachu', 'water')
 command = ''
 
 until command == 'exit'
-  puts '################'
-  puts 'Введите команду:'
-  puts '################'
+  print 'Введите команду: '
   command = gets.chomp
   case command
+  when 'exit'
+    puts 'Пока :)'
   when 'info'
     pokemon.info
   when 'help'
@@ -220,7 +255,11 @@ until command == 'exit'
     pokemon.walk
   when 'sleep'
     pokemon.sleep
+  when 'watch'
+    pokemon.watch
   else
-    puts command + ' неизвестная команда, что бы получить полный список команд введите help'
+    puts command + ' неизвестная команда.'
+    print 'Что бы получить полный '
+    puts 'список команд введите help'
   end
 end
