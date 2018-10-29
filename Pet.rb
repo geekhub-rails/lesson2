@@ -167,6 +167,11 @@ class Pet
     time_of_passed
   end
 
+  def ignor
+    time_of_passed
+    state
+  end
+
   def help
     puts "-----------------------------------------------------------------------------"
     puts "state         - выводит все важные состояния персонажа;
@@ -231,9 +236,10 @@ sleep         - уложить спать."
 
 
     @life = (@mood + @toilet + @comedy + @hungry + @sleep)/5
-    if @life <= 0
+    if @life <= 1
       puts "Плохо у вас улечу на другую планету. Прощай!!!
 GAME OVER"
+      exit
     end
 
   end
@@ -248,7 +254,14 @@ alf.play
 alf.state
 alf.fun
 alf.state
-
+alf.ignor
+alf.ignor
+alf.ignor
+alf.ignor
+alf.ignor
+alf.ignor
+alf.ignor
+alf.ignor
     # Про еду
     #
     # Твои веки тяжелеют... Ты засыпаешь... Ты больше не кот... Ты бублик.
