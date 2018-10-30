@@ -86,6 +86,7 @@ class Pokemon
 
   def initialize(name, type)
     @name = name
+    @is_dead = false
     @is_sleep = false
     @mood = 5
     @water = 5
@@ -123,34 +124,55 @@ class Pokemon
   end
 
   def feed()
-    puts 'Вы кормите ' + @name
-    passage_of_time('feed')
+    if @is_dead
+      puts @name + ' мертв.'
+    else
+      puts 'Вы кормите ' + @name
+      passage_of_time('feed')
+    end
   end
 
   def walk
-    puts 'Вы выгуливаете ' + @name
-    passage_of_time('walk')
+    if @is_dead
+      puts @name + ' мертв.'
+    else
+      puts 'Вы выгуливаете ' + @name
+      passage_of_time('walk')
+    end
   end
 
   def sleep
-    puts 'Zzzzz....'
-    passage_of_time('sleep')
+    if @is_dead
+      puts @name + ' мертв.'
+    else
+      puts 'Zzzzz....'
+      passage_of_time('sleep')
+    end
   end
 
   def watch
-    puts 'Вы наблюдаете за ' + @name
-    passage_of_time('watch')
+    if @is_dead
+      puts @name + ' мертв.'
+    else
+      puts 'Вы наблюдаете за ' + @name
+      passage_of_time('watch')
+    end
   end
 
   def fight
-    if @health < 5
-      puts 'У вашего покемона слишком мало жизней для сражения.'
+    if @is_dead
+      puts @name + ' мертв.'
     else
-      passage_of_time('fight')
+      if @health < 5
+        puts 'У вашего покемона слишком мало жизней для сражения.'
+      else
+        passage_of_time('fight')
+      end
     end
   end
 
   private
+
   def initialize_type(type)
     pokemon_skills = POKEMON_TYPES[type]
     @type = type
@@ -242,36 +264,5 @@ class Pokemon
     @money += random
     @health -= 1
     puts get_random_answer('fight', 'well')
-  end
-end
-
-pokemon = Pokemon.new('Pikachu', 'water')
-
-command = ''
-
-until command == 'exit'
-  print 'Введите команду: '
-  command = gets.chomp
-  case command
-  when 'exit'
-    puts 'Пока :)'
-  when 'info'
-    pokemon.info
-  when 'help'
-    pokemon.help
-  when 'feed'
-    pokemon.feed
-  when 'walk'
-    pokemon.walk
-  when 'sleep'
-    pokemon.sleep
-  when 'watch'
-    pokemon.watch
-  when 'fight'
-    pokemon.fight
-  else
-    puts command + ' неизвестная команда.'
-    print 'Что бы получить полный '
-    puts 'список команд введите help'
   end
 end
