@@ -11,25 +11,7 @@ class Game
     name = gets.chomp
     print 'Введите тип покемона (water, fiery, earthy): '
     type = gets.chomp
-
-    pokemon = Pokemon.new(name, type)
-
-    command = ''
-
-    until command == 'exit'
-      print 'Введите команду: '
-      command = gets.chomp
-
-      if pokemon.respond_to?(command)
-        pokemon.send(command)
-      elsif command == 'exit'
-        exit
-      else
-        puts command + ' неизвестная команда.'
-        print 'Что бы получить полный '
-        puts 'список команд введите help'
-      end
-    end
+    @pokemon = Pokemon.new(name, type)
   end
 
   def exit
@@ -40,6 +22,21 @@ class Game
       command = gets.chomp
       if command == 'start'
         start
+      end
+    end
+  end
+
+  def get_command
+    command = ''
+    until command == 'exit'
+      print 'Введите команду: '
+      command = gets.chomp
+      if @pokemon.respond_to?(command)
+        @pokemon.send(command)
+      elsif command == 'exit'
+        exit
+      else
+        p command + ' неизвестная команда. Что бы получить полный список команд введите help'
       end
     end
   end
